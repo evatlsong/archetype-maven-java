@@ -26,6 +26,9 @@
 
 		<!-- test dependency -->
 		<junit.version>4.11</junit.version>
+		<easymock.version>3.2</easymock.version>
+
+		<hibernate.version>4.3.4.Final</hibernate.version>
 
 	</properties>
 	<dependencies>
@@ -34,6 +37,16 @@
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>${easymock.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
