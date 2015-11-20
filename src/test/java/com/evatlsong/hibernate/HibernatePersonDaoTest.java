@@ -1,6 +1,8 @@
 package com.evatlsong.hibernate;
 
 
+import com.evatlsong.archetype.dao.HibernatePersonDao;
+import com.evatlsong.archetype.model.Person;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +30,7 @@ public class HibernatePersonDaoTest {
     }
     @Test
     public void testFindByLastname() {
-        String hql = "from Person p where p.lastname = :lastname";
+        String hql = "from Person p where p.lastName = :lastname";
         String lastname = "Smith";
 
         List<Person> theSmiths = new ArrayList<Person>();

@@ -1,18 +1,19 @@
-package com.evatlsong.hibernate;
+package com.evatlsong.archetype.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Person {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "firstname")
     private String firstName;
 
+    @Column(name = "lastname")
     private String lastName;
-
-    private String ssn;
-
-    private Person inLoveWith;
-
-    private Person engagedWith;
 
     public Person() {
     }
@@ -46,14 +47,6 @@ public class Person {
         this.lastName = name;
     }
 
-    public String getSsn() {
-        return ssn;
-    }
-
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -71,22 +64,4 @@ public class Person {
         return "{" + firstName + " " + lastName + "}";
     }
 
-    public void proposeTo(Person beloved) {
-        if (beloved.acceptProposalFrom(this)) {
-            this.engagedWith = beloved;
-            beloved.engagedWith = this;
-        }
-    }
-
-    private boolean acceptProposalFrom(Person person) {
-        return person.equals(inLoveWith);
-    }
-
-    public void isInLoveWith(Person beloved) {
-        inLoveWith = beloved;
-    }
-
-    public boolean isEngagedWith(Person person) {
-        return person.equals(engagedWith);
-    }
 }
