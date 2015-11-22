@@ -20,7 +20,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.evatlsong.archetype.dao")
+@ComponentScan(basePackages = "com.evatlsong.archetype")
 public class ArchetypeConfig implements TransactionManagementConfigurer {
 
   @Bean
