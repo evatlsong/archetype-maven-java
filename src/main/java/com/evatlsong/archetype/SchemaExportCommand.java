@@ -4,7 +4,9 @@ import com.evatlsong.archetype.model.Person;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 
+import javax.persistence.Entity;
 import java.io.File;
+import java.io.FileFilter;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -22,7 +24,7 @@ public class SchemaExportCommand {
         schemaExport.setFormat(true);
         schemaExport.create(true, false);
     }
-    private Configuration addAnnotatedClasses(Configuration cfg, String packageName) {
+    private Configuration addAnnotatedClasses(Configuration cfg, final String packageName) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         URL url = classLoader.getResource(packageName.replace(".", "/"));
         System.out.println(url.toString());
@@ -32,7 +34,23 @@ public class SchemaExportCommand {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        File[] files = file.listFiles();
+        File[] files = file.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                String className = packageName + "." + pathname.getName().split("\\.")[0];
+                Class<?> c = null;
+                try {
+                    c = Class.forName(className);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Entity e = c.getAnnotation(Entity.class);
+                if (e == null) {
+                    return false;
+                }
+                return true;
+            }
+        });
         for (File f : files) {
             String name = f.getName();
             System.out.println(name.split("\\.")[0]);
