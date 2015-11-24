@@ -22,6 +22,7 @@ public class SchemaExportCommand {
         SchemaExport schemaExport = new SchemaExport(configuration);
         schemaExport.setOutputFile("schema.sql");
         schemaExport.setFormat(true);
+        schemaExport.setDelimiter(";");
         schemaExport.create(true, false);
     }
     private Configuration addAnnotatedClasses(Configuration cfg, final String packageName) {
