@@ -20,7 +20,7 @@ public class SchemaExportCommand {
         configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         sec.addAnnotatedClasses(configuration, "com.evatlsong.archetype.model");
         SchemaExport schemaExport = new SchemaExport(configuration);
-        schemaExport.setOutputFile("schema.sql");
+        schemaExport.setOutputFile("target/schema.sql");
         schemaExport.setFormat(true);
         schemaExport.setDelimiter(";");
         schemaExport.create(true, false);
