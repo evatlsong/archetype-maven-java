@@ -1,6 +1,13 @@
 package com.evatlsong.archetype.model;
 
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.*;
 
@@ -17,6 +24,7 @@ import java.util.*;
                 @Index(name = "IDX_END_DATE", columnList = "END_DATE")
         }
 )
+@org.hibernate.annotations.DynamicInsert
 public class Item implements Serializable, Comparable {
 
     private static final String COLLECTION_ID_GENERATOR = "identity";
@@ -75,6 +83,8 @@ public class Item implements Serializable, Comparable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID", nullable = false)
     @org.hibernate.annotations.IndexColumn(name = "BID_POSITION")
+    @OrderColumn(name = "BID_POSITION")
+    @org.hibernate.annotations.ListIndexBase(1)
     @org.hibernate.annotations.BatchSize(size = 10)
     private List<Bid> bids = new ArrayList<Bid>();
 
@@ -99,6 +109,7 @@ public class Item implements Serializable, Comparable {
                     foreignKey = @ForeignKey(name = "FK_ITEM_IMAGE_ITEM_ID"))
     )
     @Column(name = "FILENAME")
+    @org.hibernate.annotations.Cascade(value = org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
     private Collection<String> images = new ArrayList<String>();
 
     @Temporal(TemporalType.TIMESTAMP)

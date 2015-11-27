@@ -22,7 +22,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "BID")
-@Immutable()
+@Immutable
 public class Bid implements Serializable, Comparable {
 
     @Id
